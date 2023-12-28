@@ -10,17 +10,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -160,13 +163,17 @@ fun CardDetailsWidget(
             .padding(top = 2.dp)
     ) {
         Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
         ) {
             Text(text = "Split")
             Row(
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconWidget(imageVector = Icons.Filled.Clear, contentDescription = "Subtract") {
+                IconWidget(imageVector = Icons.Default.Remove, contentDescription = "Subtract") {
                     subtractFunction()
                 }
                 Text(text = "$count", modifier = Modifier.padding(start = 8.dp, end = 8.dp), style = TextStyle(fontSize = 20.sp))
@@ -175,6 +182,7 @@ fun CardDetailsWidget(
                 }
             }
         }
+        Spacer(modifier = Modifier.height(20.dp))
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
@@ -182,7 +190,9 @@ fun CardDetailsWidget(
             Text("Tip")
             Text(text = "$$tipAmount")
         }
+        Spacer(modifier = Modifier.height(10.dp))
         Text(text = "$tipPercentage%")
+        Spacer(modifier = Modifier.height(10.dp))
         Slider(steps = 51, value = rangeSliderValue.value, onValueChange = {
             rangeSliderValue.value = it
             onSliderChange(it)
@@ -221,18 +231,24 @@ fun IconWidget(
             .clip(shape = RoundedCornerShape(50.dp))
             .background(Color.White)
             .padding(2.dp),
-        shape = RoundedCornerShape(8.dp),
+        shape = CircleShape,
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
         ),
-        elevation = CardDefaults.cardElevation(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp),
         onClick = onClick,
     ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = contentDescription,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = contentDescription,
+                tint = Color.Black.copy(alpha = 0.8f),
+            )
+        }
     }
 }
 
